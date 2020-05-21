@@ -90,7 +90,9 @@ func main() {
 			log.Warnf("Empty '-projects=%s' flag in daemon mode", *fprojects)
 		}
 		log.Printf("Targets projects: %v", projectsSetList(projects))
-		log.Printf("Projects exclude pattern: %s", pexcludes.String())
+		if *fprojectsexcludes != "" {
+			log.Printf("Projects exclude pattern: %s", pexcludes.String())
+		}
 
 		runDaemon(ctx, gceds, gcpds, DaemonConfig{
 			Output:                 *fouput,
