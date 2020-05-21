@@ -30,6 +30,7 @@ const (
 	promLabelTags             = promLabel + "tags"
 	promLabelMetadata         = promLabel + "metadata_"
 	promLabelName             = promLabel + "name"
+	promLabelPort             = promLabel + "port"
 	promLabelLabel            = promLabel + "label_"
 	promLabelDelegateForNames = promLabel + "delegate_for_instances"
 	// separator used to join the GCE tag in one prom label or to declare
@@ -234,6 +235,7 @@ func (d *GCEDiscovery) Instances(ctx context.Context, project, filter string) ([
 							}
 							targetLabels := labels.Clone()
 							targetLabels[model.LabelName(promLabelName)] = model.LabelValue(name)
+							targetLabels[model.LabelName(promLabelPort)] = model.LabelValue(strconv.Itoa(ports[0]))
 							pc := &PromConfig{addrs, targetLabels}
 							configs = append(configs, pc)
 							lTargetsLabels = append(lTargetsLabels, targetLabels)
